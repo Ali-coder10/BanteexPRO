@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BanteeX — Professional Trading Indicators Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lightweight-charts@4.1.0/dist/lightweight-charts.standalone.production.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <div class="trident-loader">🔱</div>
+            <div class="loading-text">BanteeX</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="header-container">
+            <a href="#" class="logo">
+                <span class="trident-icon">🔱</span>
+                <span class="logo-text">BanteeX</span>
+            </a>
+            <nav class="nav-desktop">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#indicators" class="nav-link">Indicators</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+            <a href="#community" class="btn-cta">Join Community</a>
+            <button class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#indicators" class="nav-link">Indicators</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#contact" class="nav-link">Contact</a>
+            <a href="#community" class="btn-cta">Join Community</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg">
+            <div id="tv-chart-bg"></div>
+            <div class="particle-overlay" id="particles"></div>
+            <div class="gradient-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="line">TRADE WITH</span>
+                    <span class="line highlight">PRECISION.</span>
+                    <span class="line">BUILT ON</span>
+                    <span class="line highlight">SMART MONEY.</span>
+                </h1>
+                <p class="hero-subtitle">Professional SMC Indicators for serious traders</p>
+                <div class="hero-buttons">
+                    <a href="#indicators" class="btn-primary">Explore Indicators</a>
+                    <a href="#community" class="btn-outline">Join Bantee Community</a>
+                </div>
+            </div>
+            <div class="hero-3d" id="hero-3d">
+                <canvas id="three-canvas"></canvas>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-badge">
+                <span class="stat-number" data-target="5">0</span>+
+                <span class="stat-label">Indicators</span>
+            </div>
+            <div class="stat-badge">
+                <span class="stat-text">SMC</span>
+                <span class="stat-label">Based</span>
+            </div>
+            <div class="stat-badge">
+                <span class="stat-text">Live</span>
+                <span class="stat-label">Tested</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Indicators Section -->
+    <section id="indicators" class="indicators">
+        <div class="section-header">
+            <h2 class="section-title">OUR INDICATORS</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="indicators-grid">
+            <div class="indicator-card" data-tilt onclick="window.location.href='indicator-1.html'">
+                <div class="card-glow"></div>
+                <div class="card-content">
+                    <div class="card-icon">🔱</div>
+                    <h3 class="card-title">SMC Liquidity Sweep + Kill Zone</h3>
+                    <p class="card-desc">Identify high-probability liquidity sweeps with precise kill zone timing</p>
+                    <span class="card-btn">View Details →</span>
+                </div>
+            </div>
+            <div class="indicator-card" data-tilt onclick="window.location.href='indicator-2.html'">
+                <div class="card-glow"></div>
+                <div class="card-content">
+                    <div class="card-icon">📊</div>
+                    <h3 class="card-title">BTC SMC Scalper</h3>
+                    <p class="card-desc">High-frequency scalping signals optimized for Bitcoin volatility</p>
+                    <span class="card-btn">View Details →</span>
+                </div>
+            </div>
+            <div class="indicator-card" data-tilt onclick="window.location.href='indicator-3.html'">
+                <div class="card-glow"></div>
+                <div class="card-content">
+                    <div class="card-icon">🎯</div>
+                    <h3 class="card-title">Demand Zone Hunter</h3>
+                    <p class="card-desc">Automatically detect and mark institutional demand zones</p>
+                    <span class="card-btn">View Details →</span>
+                </div>
+            </div>
+            <div class="indicator-card" data-tilt onclick="window.location.href='indicator-4.html'">
+                <div class="card-glow"></div>
+                <div class="card-content">
+                    <div class="card-icon">📈</div>
+                    <h3 class="card-title">Kill Zone EMA Confluence</h3>
+                    <p class="card-desc">EMA alignment signals within optimal trading windows</p>
+                    <span class="card-btn">View Details →</span>
+                </div>
+            </div>
+            <div class="indicator-card" data-tilt onclick="window.location.href='indicator-5.html'">
+                <div class="card-glow"></div>
+                <div class="card-content">
+                    <div class="card-icon">⚡</div>
+                    <h3 class="card-title">Multi-Signal Dashboard</h3>
+                    <p class="card-desc">Consolidated view of all signals across multiple timeframes</p>
+                    <span class="card-btn">View Details →</span>
+                </div>
+            </div>
+            <div class="indicator-card" data-tilt onclick="window.location.href='indicator-6.html'">
+                <div class="card-glow"></div>
+                <div class="card-content">
+                    <div class="card-icon">🔍</div>
+                    <h3 class="card-title">Structure Break Detector</h3>
+                    <p class="card-desc">Real-time market structure break alerts with confirmation</p>
+                    <span class="card-btn">View Details →</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about-grid">
+            <div class="about-stats">
+                <div class="stat-box">
+                    <div class="stat-icon">📡</div>
+                    <div class="stat-counter" data-target="1247">0</div>
+                    <div class="stat-desc">Signals Fired</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-counter" data-target="87">0</div>
+                    <div class="stat-desc">% Accuracy</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-counter" data-target="250+">0</div>
+                    <div class="stat-desc">Community Members</div>
+                </div>
+            </div>
+            <div class="about-content">
+                <h2 class="about-title">Built for Precision.<br>Driven by SMC.</h2>
+                <p class="about-text">
+                    BanteeX was born from the trading floor — where every tick matters and every second counts. 
+                    We engineer indicators based on Smart Money Concepts, the same strategies used by institutional traders 
+                    to read order flow, liquidity, and market structure.
+                </p>
+                <p class="about-text">
+                    No guesswork. No lag. Pure alpha. Our tools are battle-tested in live markets, 
+                    refined through thousands of trades, and built for traders who demand precision.
+                </p>
+                <div class="about-tags">
+                    <span class="tag">Smart Money</span>
+                    <span class="tag">Liquidity</span>
+                    <span class="tag">Order Blocks</span>
+                    <span class="tag">Fair Value Gaps</span>
+                </div>
+            </div>
+        </div>
+        <div class="grid-floor" id="grid-floor"></div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community" class="community">
+        <div class="community-bg"></div>
+        <div class="community-content">
+            <h2 class="community-title">JOIN THE BANTEE ALPHA COMMUNITY</h2>
+            <p class="community-subtitle">Get real-time signals, live analysis, and exclusive indicator access</p>
+            <div class="community-buttons">
+                <a href="#" class="btn-community btn-binance">
+                    <span class="btn-icon">◈</span> Join on Binance Square
+                </a>
+                <a href="#" class="btn-community btn-x">
+                    <span class="btn-icon">𝕏</span> Follow on X
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2 class="contact-title">GET IN TOUCH</h2>
+                <p class="contact-desc">Have questions about our indicators or want to collaborate? Reach out.</p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <span class="contact-icon">📧</span>
+                        <span>alpha@banteex.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">🌐</span>
+                        <span>banteex.com</span>
+                    </div>
+                </div>
+            </div>
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent! We will get back to you soon.');">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" rows="4" required></textarea>
+                <button type="submit" class="btn-submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <span class="trident-icon">🔱</span>
+                    <span>BanteeX</span>
+                </div>
+                <p class="footer-tagline">Precision Trading. Smart Money Alpha.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#indicators">Indicators</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-social">
+                <a href="#" class="social-link" title="Binance Square">◈</a>
+                <a href="#" class="social-link" title="X/Twitter">𝕏</a>
+                <a href="#" class="social-link" title="Telegram">✈</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 BanteeX | Bantee Alpha 🔱 | Not Financial Advice</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
