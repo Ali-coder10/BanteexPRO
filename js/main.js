@@ -44,7 +44,7 @@ window.addEventListener('scroll', () => {
 });
 
 // ===== SCROLL-TRIGGERED FADE-IN =====
-const fadeElements = document.querySelectorAll('.section-header, .indicator-card, .stat-box, .about-content, .community-content, .contact-container, .footer-container');
+const fadeElements = document.querySelectorAll('.section-header, .indicator-card, .stat-box, .about-content, .community-content, .contact-container, .footer-container, .tf-panel');
 const fadeObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -161,43 +161,84 @@ function createParticles() {
 }
 createParticles();
 
-// ===== TRADINGVIEW BACKGROUND CHART =====
+// ===== BACKGROUND CANDLE CHART (candles keep climbing upward) =====
 function initBackgroundChart() {
     const chartContainer = document.getElementById('tv-chart-bg');
-    if (!chartContainer || typeof LightweightCharts === 'undefined') return;
-    const chart = LightweightCharts.createChart(chartContainer, {
-        width: chartContainer.clientWidth,
-        height: chartContainer.clientHeight,
-        layout: { background: { type: 'solid', color: 'transparent' }, textColor: 'rgba(255, 255, 255, 0.1)' },
-        grid: { vertLines: { color: 'rgba(255, 255, 255, 0.02)' }, horzLines: { color: 'rgba(255, 255, 255, 0.02)' } },
-        crosshair: { mode: 0 },
-        rightPriceScale: { visible: false },
-        timeScale: { visible: false },
-        handleScroll: false,
-        handleScale: false,
-    });
-    const candleSeries = chart.addCandlestickSeries({
-        upColor: '#00E5FF', downColor: '#FF6B00',
-        borderUpColor: '#00E5FF', borderDownColor: '#FF6B00',
-        wickUpColor: '#00E5FF', wickDownColor: '#FF6B00',
-    });
-    const data = [];
-    let time = new Date('2024-01-01').getTime() / 1000;
-    let price = 42000;
-    for (let i = 0; i < 200; i++) {
-        const change = (Math.random() - 0.48) * 800;
-        const open = price;
-        const close = price + change;
-        const high = Math.max(open, close) + Math.random() * 300;
-        const low = Math.min(open, close) - Math.random() * 300;
-        data.push({ time: time + i * 86400, open: open, high: high, low: low, close: close });
-        price = close;
+    if (!chartContainer) return;
+    const canvas = document.createElement('canvas');
+    canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;';
+    chartContainer.appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let W = 0, H = 0, candles = [], running = true, last = 0;
+
+    function rnd(a, b) { return a + Math.random() * (b - a); }
+    function newShape(c) {
+        c.body = rnd(10, 48);
+        c.wickUp = rnd(6, 28);
+        c.wickDown = rnd(6, 28);
+        c.up = Math.random() > 0.3;
     }
-    candleSeries.setData(data);
-    let offset = 0;
-    setInterval(() => { offset += 1; chart.timeScale().scrollToPosition(offset, false); }, 100);
+    function setup() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        W = chartContainer.clientWidth;
+        H = chartContainer.clientHeight;
+        if (!W || !H) return;
+        canvas.width = W * dpr;
+        canvas.height = H * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        const small = W < 600;
+        const w = small ? 8 : 12;
+        const gap = w * 2.2;
+        const cols = Math.ceil(W / gap) + 1;
+        const perColumn = small ? 2 : 3;
+        candles = [];
+        for (let i = 0; i < cols; i++) {
+            for (let k = 0; k < perColumn; k++) {
+                const c = { x: i * gap, w: w, y: rnd(0, H + 150), speed: rnd(14, 30) };
+                newShape(c);
+                candles.push(c);
+            }
+        }
+    }
+    function draw(t) {
+        if (!running) return;
+        if (!reduceMotion) requestAnimationFrame(draw);
+        const dt = Math.min((t - last) / 1000 || 0, 0.05);
+        last = t;
+        ctx.clearRect(0, 0, W, H);
+        for (let i = 0; i < candles.length; i++) {
+            const c = candles[i];
+            if (!reduceMotion) c.y -= c.speed * dt;
+            if (c.y + c.body + c.wickDown < -20) {
+                c.y = H + rnd(20, 200);
+                newShape(c);
+            }
+            // candles glow most along the rising diagonal (bottom-left to top-right)
+            const off = c.y / H - (1 - c.x / W);
+            const a = 0.3 + 0.7 * Math.exp(-(off * off) / 0.12);
+            const col = c.up ? '0, 229, 255' : '255, 107, 0';
+            ctx.strokeStyle = 'rgba(' + col + ', ' + a + ')';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(c.x + c.w / 2, c.y - c.wickUp);
+            ctx.lineTo(c.x + c.w / 2, c.y + c.body + c.wickDown);
+            ctx.stroke();
+            ctx.fillStyle = 'rgba(' + col + ', ' + a + ')';
+            ctx.fillRect(c.x, c.y, c.w, c.body);
+        }
+    }
+    setup();
+    requestAnimationFrame(draw);
+    let resizeTimer;
     window.addEventListener('resize', () => {
-        chart.applyOptions({ width: chartContainer.clientWidth, height: chartContainer.clientHeight });
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => { setup(); if (reduceMotion) draw(0); }, 200);
+    });
+    document.addEventListener('visibilitychange', () => {
+        if (reduceMotion) return;
+        if (document.hidden) { running = false; }
+        else if (!running) { running = true; last = performance.now(); requestAnimationFrame(draw); }
     });
 }
 
@@ -284,6 +325,60 @@ function initThreeJS() {
         renderer.setSize(canvas.clientWidth, canvas.clientHeight);
     });
 }
+
+// ===== TIME FRAME EXPLAINED =====
+(function initTimeFrames() {
+    const chipsBox = document.getElementById('tf-chips');
+    const rowsBox = document.getElementById('tf-rows');
+    const bigLabel = document.getElementById('tf-big-label');
+    if (!chipsBox || !rowsBox || !bigLabel) return;
+    // [big candle, [[small time frame, how many cells to draw, label shown]]]
+    const TF = [
+        ['1 MONTH', [['Weekly', 4, '~4'], ['Daily', 30, '~30']]],
+        ['1 WEEK', [['Daily', 7, '7'], ['4H', 42, '42']]],
+        ['1 DAY', [['4H', 6, '6'], ['1H', 24, '24']]],
+        ['4 HOUR', [['1H', 4, '4'], ['30m', 8, '8']]],
+        ['1 HOUR', [['30m', 2, '2'], ['15m', 4, '4'], ['5m', 12, '12']]],
+        ['30 MIN', [['15m', 2, '2'], ['5m', 6, '6'], ['1m', 30, '30']]]
+    ];
+    function pick(index) {
+        chipsBox.querySelectorAll('.tf-chip').forEach((chip, i) => {
+            chip.classList.toggle('active', i === index);
+            chip.setAttribute('aria-pressed', i === index ? 'true' : 'false');
+        });
+        bigLabel.textContent = TF[index][0];
+        rowsBox.innerHTML = '';
+        TF[index][1].forEach(child => {
+            const row = document.createElement('div');
+            row.className = 'tf-row';
+            const label = document.createElement('div');
+            label.className = 'tf-row-label';
+            label.innerHTML = '<b>' + child[2] + '</b> x ' + child[0] + ' candles';
+            const cells = document.createElement('div');
+            cells.className = 'tf-cells';
+            for (let k = 0; k < child[1]; k++) {
+                const cell = document.createElement('i');
+                const up = Math.random() > 0.35;
+                cell.style.height = (10 + Math.round(Math.random() * 22)) + 'px';
+                cell.style.background = up ? 'var(--accent-cyan)' : 'var(--accent-orange)';
+                cell.style.animationDelay = (k * 14) + 'ms';
+                cells.appendChild(cell);
+            }
+            row.appendChild(label);
+            row.appendChild(cells);
+            rowsBox.appendChild(row);
+        });
+    }
+    TF.forEach((item, i) => {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'tf-chip';
+        chip.textContent = item[0];
+        chip.addEventListener('click', () => pick(i));
+        chipsBox.appendChild(chip);
+    });
+    pick(0);
+})();
 
 window.addEventListener('load', () => {
     initBackgroundChart();
