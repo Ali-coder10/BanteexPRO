@@ -355,3 +355,56 @@ body {
     .section-title { font-size: 2rem; }
     .stat-counter { font-size: 2.5rem; }
 }
+
+/* ===== TIME FRAME EXPLAINED SECTION ===== */
+.timeframes { position: relative; padding: 8rem 2rem; background: var(--bg-primary); }
+.section-sub { font-family: var(--font-body); font-size: 1.15rem; color: var(--text-secondary); max-width: 640px; margin: 1.5rem auto 0; }
+.tf-panel { max-width: 1100px; margin: 0 auto; }
+.tf-chips { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; margin-bottom: 2rem; }
+.tf-chip {
+    font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.08em; padding: 0.7rem 1.4rem;
+    background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 50px;
+    color: var(--text-secondary); cursor: pointer; transition: all 0.3s ease;
+}
+.tf-chip:hover { border-color: var(--accent-orange); color: var(--text-primary); }
+.tf-chip.active {
+    background: linear-gradient(135deg, var(--accent-orange), #ff8533); border-color: transparent;
+    color: #000; font-weight: 700; box-shadow: 0 0 25px rgba(255, 107, 0, 0.4);
+}
+.tf-box {
+    display: grid; grid-template-columns: 220px 1fr; gap: 3rem; padding: 2.5rem;
+    background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px;
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+.tf-big { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.25rem; }
+.tf-big-candle { position: relative; width: 70px; height: 170px; }
+.tf-big-candle::before {
+    content: ''; position: absolute; left: 50%; top: -14px; bottom: -14px; width: 2px;
+    margin-left: -1px; background: var(--accent-orange);
+}
+.tf-big-candle span {
+    position: absolute; left: 0; right: 0; top: 22px; bottom: 30px;
+    background: linear-gradient(180deg, var(--accent-orange), rgba(255, 107, 0, 0.25));
+    border: 1px solid var(--accent-orange); box-shadow: 0 0 30px rgba(255, 107, 0, 0.5);
+}
+.tf-big strong { font-family: var(--font-display); font-weight: 400; font-size: 2.2rem; letter-spacing: 0.1em; }
+.tf-rows { display: flex; flex-direction: column; gap: 1.5rem; justify-content: center; }
+.tf-row-label { font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent-gold); margin-bottom: 0.6rem; letter-spacing: 0.05em; }
+.tf-row-label b { color: var(--text-primary); font-weight: 700; }
+.tf-cells { display: flex; flex-wrap: wrap; gap: 4px; align-items: flex-end; }
+.tf-cells i { display: block; width: 10px; border-radius: 2px; opacity: 0.85; animation: tfPop 0.45s ease both; }
+@keyframes tfPop { from { opacity: 0; transform: scaleY(0.2); } }
+.tf-table-wrap { margin-top: 2rem; overflow-x: auto; border: 1px solid var(--glass-border); border-radius: 12px; background: var(--glass-bg); }
+.tf-table { width: 100%; border-collapse: collapse; min-width: 420px; }
+.tf-table th, .tf-table td { padding: 1rem 1.5rem; text-align: left; border-bottom: 1px solid var(--glass-border); font-family: var(--font-body); }
+.tf-table th { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-orange); }
+.tf-table td { color: var(--text-secondary); }
+.tf-table td:first-child { color: var(--text-primary); font-weight: 700; letter-spacing: 0.05em; }
+.tf-table tr:last-child td { border-bottom: none; }
+@media (max-width: 768px) {
+    .timeframes { padding: 5rem 1.5rem; }
+    .tf-box { grid-template-columns: 1fr; padding: 1.5rem; gap: 2rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .tf-cells i { animation: none; }
+}
