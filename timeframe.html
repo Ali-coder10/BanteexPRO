@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Frame Explained | BanteeX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/timeframe.css">
+</head>
+<body class="tf-page">
+    <!-- Header -->
+    <header id="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span class="trident-icon">🔱</span>
+                <span class="logo-text">BANTEEX</span>
+            </a>
+            <nav class="nav-desktop">
+                <a href="index.html#home" class="nav-link">Home</a>
+                <a href="index.html#indicators" class="nav-link">Indicators</a>
+                <a href="timeframe.html" class="nav-link active">Time Frames</a>
+                <a href="index.html#about" class="nav-link">About</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+            </nav>
+            <a href="index.html#community" class="btn-cta">Join Community</a>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="index.html#home" class="nav-link">Home</a>
+            <a href="index.html#indicators" class="nav-link">Indicators</a>
+            <a href="timeframe.html" class="nav-link active">Time Frames</a>
+            <a href="index.html#about" class="nav-link">About</a>
+            <a href="index.html#contact" class="nav-link">Contact</a>
+            <a href="index.html#community" class="btn-cta">Join Community</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Page intro -->
+        <section class="tf-hero">
+            <div class="tf-hero-inner">
+                <span class="tf-eyebrow">BANTEEX ACADEMY</span>
+                <h1 class="tf-title">TIME FRAME <span>EXPLAINED</span></h1>
+                <div class="section-line"></div>
+                <p class="tf-intro">Every candle is built from smaller candles. A bigger time frame candle is a summary of everything that happened inside it.</p>
+            </div>
+        </section>
+
+        <!-- Interactive split -->
+        <section class="tf-section">
+            <div class="tf-container">
+                <h2 class="tf-h2">WHAT IS INSIDE A CANDLE?</h2>
+                <p class="tf-sub">Pick a time frame and see how one big candle splits into smaller ones.</p>
+                <div class="tf-chips" id="tf-chips" role="group" aria-label="Choose a time frame"></div>
+                <div class="tf-box">
+                    <div class="tf-big">
+                        <div class="tf-big-candle"><span></span></div>
+                        <strong class="tf-big-label" id="tf-big-label">1 MONTH</strong>
+                    </div>
+                    <div class="tf-rows" id="tf-rows" aria-live="polite"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Table -->
+        <section class="tf-section">
+            <div class="tf-container">
+                <h2 class="tf-h2">QUICK REFERENCE</h2>
+                <p class="tf-sub">How many smaller candles fit inside a bigger one.</p>
+                <div class="tf-table-wrap">
+                    <table class="tf-table">
+                        <thead>
+                            <tr><th>Bigger candle</th><th>Contains</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1 Month</td><td>~4 weekly, ~30 daily</td></tr>
+                            <tr><td>1 Week</td><td>7 daily, 42 x 4H</td></tr>
+                            <tr><td>1 Day</td><td>6 x 4H, 24 x 1H</td></tr>
+                            <tr><td>4 Hour</td><td>4 x 1H, 8 x 30m</td></tr>
+                            <tr><td>1 Hour</td><td>2 x 30m, 4 x 15m, 12 x 5m, 60 x 1m</td></tr>
+                            <tr><td>30 Min</td><td>2 x 15m, 6 x 5m, 30 x 1m</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Candle structure -->
+        <section class="tf-section">
+            <div class="tf-container">
+                <h2 class="tf-h2">CANDLE STRUCTURE</h2>
+                <p class="tf-sub">Every candle, on every time frame, is described by the same four prices.</p>
+                <div class="tf-anatomy">
+                    <div class="tf-card"><b>OPEN</b><p>The price at the start of the candle's time period.</p></div>
+                    <div class="tf-card"><b>HIGH</b><p>The highest price reached during the period.</p></div>
+                    <div class="tf-card"><b>LOW</b><p>The lowest price reached during the period.</p></div>
+                    <div class="tf-card"><b>CLOSE</b><p>The price at the end of the period.</p></div>
+                    <div class="tf-card"><b>BODY</b><p>The thick part between the open and the close.</p></div>
+                    <div class="tf-card"><b>WICK</b><p>The thin lines above and below the body, showing the high and the low.</p></div>
+                </div>
+                <div class="tf-callout">
+                    <h3>HOW A BIG CANDLE IS BUILT</h3>
+                    <p>Take the <em>open</em> of the first small candle, the <em>close</em> of the last small candle, the <em>highest high</em> and the <em>lowest low</em> from all of them. Put those four prices together and you have the bigger candle.</p>
+                    <p>This is why traders check higher time frames first: they show the overall direction, and the smaller time frames then show the detail for the entry.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Back -->
+        <section class="tf-section tf-cta">
+            <a href="index.html#indicators" class="btn-primary">EXPLORE INDICATORS</a>
+            <a href="index.html" class="btn-outline">BACK TO HOME</a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <span class="trident-icon">🔱</span>
+                    <span>BANTEEX</span>
+                </div>
+                <p class="footer-tagline">Precision Trading. Smart Money Alpha.</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html#home">Home</a>
+                <a href="index.html#indicators">Indicators</a>
+                <a href="timeframe.html">Time Frames</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <div class="footer-social">
+                <a href="#" class="social-link" title="Binance Square">◈</a>
+                <a href="#" class="social-link" title="X/Twitter">𝕏</a>
+                <a href="#" class="social-link" title="Telegram">✈</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 BanteeX | Bantee Alpha 🔱 | Not Financial Advice</p>
+        </div>
+    </footer>
+
+    <script src="js/timeframe.js"></script>
+</body>
+</html>
